@@ -12,7 +12,7 @@
     padding-right: 15px;
 }
 .switch-theme {
-    position: absolute;
+    position: fixed;
     right: 20px;
     bottom: 60px;
 }
