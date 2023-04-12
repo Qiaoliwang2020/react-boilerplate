@@ -14,7 +14,7 @@
 .switch-theme {
     position: fixed;
     right: 20px;
-    bottom: 60px;
+    top: 65px;
 }
 .table-title{
     text-transform:capitalize;

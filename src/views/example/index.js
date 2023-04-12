@@ -13,13 +13,30 @@ const rows = [
   { _id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
   { _id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
   { _id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+  { _id: 10, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
 ];
+
+const editItem = (item)=>{
+  console.log(item);
+};
 
 export const Example = () => {
   return (<Box sx={LayoutConfig.defaultContainerSX}>
     <Container
       maxWidth="xl">
-      <EnhancedDataGrid title={'Example'} isToolBarOn={false} dataRow={rows}></EnhancedDataGrid>
+      <EnhancedDataGrid 
+        title={'Example'} 
+        isToolBarOn={true} 
+        dataRow={rows} 
+        pageSize={10}
+        rowsPerPageOptions={[10]}
+        actions={[
+          {buttonName:'Edit',function:editItem},
+          {buttonName:'View',function:editItem}
+        ]}
+        ignoreKeys={['age']} 
+      >
+      </EnhancedDataGrid>
     </Container>
   </Box>);
 };

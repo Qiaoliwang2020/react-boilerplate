@@ -1,5 +1,5 @@
 /**
- * Created by Qiaoli Wang.
+ * Created by Sanchit Dang. Updated by Qiaoli Wang.
  */
 
 import { useEffect, useState, useRef } from 'react';

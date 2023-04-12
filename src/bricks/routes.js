@@ -1,6 +1,3 @@
-/**
- * Created by Qiaoli Wang.
- */
 import PropTypes from 'prop-types';
 import { Loading } from '../components';
 import { LayoutConfig } from '../constants';
