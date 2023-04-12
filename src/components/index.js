@@ -9,6 +9,7 @@ import { LoginForm } from './login/loginForm';
 import { SsoLogin }  from './login/ssoLogin';
 import EnhancedNotification, { notify } from './common/notification';
 import EnhancedDataGrid from './common/enhanceDataGrid';
+import { EnhancedEditor } from './common/enhanceEditor';
 
 
 
@@ -21,5 +22,6 @@ export {
   Loading,
   LoginForm,
   SsoLogin,
-  EnhancedDataGrid
+  EnhancedDataGrid,
+  EnhancedEditor
 };

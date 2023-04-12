@@ -85,7 +85,7 @@ export default function EnhancedDataGrid(props) {
   },[props?.actions, props.dataRow, props?.ignoreKeys]);
 
   return (
-    <Box sx={{ height: 665, width: '100%' }}>
+    <Box sx={{ height: 665, width: '100%'}}>
       <Typography variant='h5' className='table-title'>{props?.title ?? ''}</Typography>  
       <DataGrid
         loading={props?.loading ?? false}

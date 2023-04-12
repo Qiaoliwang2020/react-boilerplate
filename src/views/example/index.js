@@ -1,7 +1,8 @@
 
-import { Box, Container } from '@mui/material';
+import { Box,Grid, Container,Card ,CardContent,Typography,CardActions,Button} from '@mui/material';
 import { LayoutConfig } from '../../constants';
-import { EnhancedDataGrid } from '../../components';
+import { EnhancedDataGrid,EnhancedEditor } from '../../components';
+import { useState } from 'react';
 
 const rows = [
   { _id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
@@ -21,22 +22,41 @@ const editItem = (item)=>{
 };
 
 export const Example = () => {
+  const [contentStorage, setContentStorage] = useState('');
+
   return (<Box sx={LayoutConfig.defaultContainerSX}>
     <Container
       maxWidth="xl">
-      <EnhancedDataGrid 
-        title={'Example'} 
-        isToolBarOn={true} 
-        dataRow={rows} 
-        pageSize={10}
-        rowsPerPageOptions={[10]}
-        actions={[
-          {buttonName:'Edit',function:editItem},
-          {buttonName:'View',function:editItem}
-        ]}
-        ignoreKeys={['age']} 
-      >
-      </EnhancedDataGrid>
+      <Grid container spacing={4}>
+        <Grid item xs={12} lg={6}>
+          <EnhancedDataGrid 
+            title={'Table Example'} 
+            isToolBarOn={true} 
+            dataRow={rows} 
+            pageSize={8}
+            rowsPerPageOptions={[5]}
+            actions={[
+              {buttonName:'Edit',function:editItem},
+              {buttonName:'View',function:editItem}
+            ]}
+            ignoreKeys={['age']} 
+          >
+          </EnhancedDataGrid>
+        </Grid>
+        <Grid item xs={12} lg={6}>
+          <Box sx={{mt:5}}>
+            <Card>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">Text Editor Example</Typography>
+                <EnhancedEditor id={'textEditor'} onEditorChange={(newValue) => setContentStorage(newValue)} />
+              </CardContent>
+              <CardActions>
+                <Button variant="outlined" onClick={() => console.log(contentStorage)}>Console Data</Button>
+              </CardActions>
+            </Card>
+          </Box>
+        </Grid>
+      </Grid>
     </Container>
   </Box>);
 };
