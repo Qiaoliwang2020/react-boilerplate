@@ -43,7 +43,7 @@ export default function EnhancedDataGrid(props) {
 
   useEffect(()=>{
     let rowKeys;
-    let originalKeys = Object.keys(props.dataRow[0]);
+    let originalKeys = Object.keys(props?.dataRow[0]);
     if(props?.ignoreKeys) {
       rowKeys = arrayDiff(originalKeys, props?.ignoreKeys);
     }
@@ -82,29 +82,31 @@ export default function EnhancedDataGrid(props) {
       },]);
     }
     
-  },[props?.actions, props.dataRow, props?.ignoreKeys]);
+  },[props?.actions, props?.dataRow, props?.ignoreKeys]);
 
   return (
     <Box sx={{ height: 665, width: '100%'}}>
       <Typography variant='h5' className='table-title'>{props?.title ?? ''}</Typography>  
-      <DataGrid
-        loading={props?.loading ?? false}
-        isCellEditable={() =>props?.isCellEditable ?? false}
-        components={{ Toolbar: props?.isToolBarOn ? GridToolbar : '' }}
-        getRowId={(row) => row?._id}
-        rows={props?.dataRow}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: props?.pageSize ?? 10,
+      {props?.dataRow.length > 0 ?
+        <DataGrid
+          loading={props?.loading ?? false}
+          isCellEditable={() =>props?.isCellEditable ?? false}
+          components={{ Toolbar: props?.isToolBarOn ? GridToolbar : '' }}
+          getRowId={(row) => row?._id}
+          rows={props?.dataRow}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: props?.pageSize ?? 10,
+              },
             },
-          },
-        }}
-        rowsPerPageOptions={props?.rowsPerPageOptions ?? [5]}
-        disableSelectionOnClick
-        experimentalFeatures={{ newEditingApi: true }}
-      />
+          }}
+          rowsPerPageOptions={props?.rowsPerPageOptions ?? [5]}
+          disableSelectionOnClick
+          experimentalFeatures={{ newEditingApi: true }}
+        />
+        :<Box><Typography>No data</Typography></Box>}
     </Box>
   );
 }

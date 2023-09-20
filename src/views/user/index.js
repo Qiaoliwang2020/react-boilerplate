@@ -1,29 +1,34 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback ,useState} from 'react';
 import { API } from '../../helpers';
-import { notify } from '../../components';
-//import { useIsMountedRef } from '../../helpers/hooks';
-import { Box, Container } from '@mui/material';
+import { EnhancedDataGrid, Loading, notify } from '../../components';
+import { useIsMountedRef } from '../../helpers/hooks';
+import { Box, Container, Typography } from '@mui/material';
 
 export const UsersManager = () => {
-  // const [users, setUsers] = useState([]);
-  //const isMounted = useIsMountedRef();
+  const [users, setUsers] = useState([]);
+  const [loading,setLoading] = useState(true);
+  const isMounted = useIsMountedRef();
 
   const getUsers = useCallback(async () => {
     try {
       const response = await API.getUsers();
       if (response?.success) {
-        // if (isMounted) setUsers(response.data.data);
+        if (isMounted) {
+          setUsers(response.data.data);
+          setLoading(false);
+        }
       }
       else {
-        //setUsers([]);
+        setUsers([]);
+        setLoading(false);
         notify('Failed to Fetch Users List');
       }
     } catch (err) {
-      //setUsers([]);
+      setUsers([]);
+      setLoading(false);
       notify('Failed to Fetch Users List');
     }
-
-  }, []);
+  }, [isMounted]);
 
   useEffect(() => {
     getUsers();
@@ -32,17 +37,18 @@ export const UsersManager = () => {
   let content = (
     <Box sx={{
       backgroundColor: 'background.default',
-      display: 'flex', flexDirection: 'column',
-      minHeight: '100vh'
     }} >
-      <Container maxWidth="lg" sx={{
-        py: {
-          xs: '100px',
-          sm: window.screen.availHeight / 50
-        }
-      }}>
-        {/* <EnhancedTable data={users} title="Users Manager" options={{ ignoreKeys: ['_id', 'deakinSSO', 'firstLogin', 'emailVerified', 'isBlocked'] }} /> */}
-      </Container>
+      {loading ? <Loading></Loading> :<Container maxWidth="xl">
+        {users.length > 0 ? <EnhancedDataGrid  title={'Users Manager'} 
+          isToolBarOn={true} 
+          dataRow={users} 
+          pageSize={8}
+          rowsPerPageOptions={[5]}
+          ignoreKeys={['_id','deakinSSO','firstLogin']} 
+        >
+        </EnhancedDataGrid> :<Box><Typography>No User Found</Typography></Box>}
+        
+      </Container>}
     </Box>
   );
   return content;
