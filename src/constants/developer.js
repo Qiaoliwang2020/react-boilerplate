@@ -1,7 +1,7 @@
 class Developer {
   constructor() {
     this.visible = true;
-    this.label = "Developer";
+    this.label = "switch theme";
     this.verticalPosition = "bottom";
     this.horizontalPosition = "right";
     this.devDetails = {
