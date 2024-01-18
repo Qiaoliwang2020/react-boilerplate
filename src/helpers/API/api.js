@@ -17,12 +17,19 @@ class API {
     }).catch(error => errorHelper(error, "login"));
   }
 
-  getUserRole() {
-    return axiosInstance.post('accessTokenLogin', {}, {
-      headers: {
-        authorization: "Bearer " + AccessToken
-      }
-    }).then((response) => generateSuccess(response.data.data)).catch(error => errorHelper(error));
+  async getUserRole() {
+    try
+    {
+      const response = await axiosInstance.post( 'accessTokenLogin', {}, {
+        headers: {
+          authorization: "Bearer " + AccessToken
+        }
+      } );
+      return generateSuccess( response.data.data );
+    } catch ( error )
+    {
+      return errorHelper( error );
+    }
   }
 
   /**
@@ -43,7 +50,7 @@ class API {
   * @returns {Promise<Object>} responseObject
   */
   async logoutUser() {
-    return axiosInstance.put('logout', {}, {
+    return axiosInstance.put('admin/logout', {}, {
       headers: {
         authorization: "Bearer " + AccessToken
       }
@@ -74,7 +81,7 @@ class API {
    * @returns {Promise<Object>}
    */
   async register(data) {
-    return axiosInstance.post(`register`, data)
+    return axiosInstance.post(`admin/register`, data)
       .then((response) => generateSuccess(response.data.data))
       .catch(error => errorHelper(error));
   }

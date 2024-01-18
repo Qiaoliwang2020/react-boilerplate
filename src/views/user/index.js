@@ -39,7 +39,7 @@ export const UsersManager = () => {
       backgroundColor: 'background.default',
     }} >
       {loading ? <Loading></Loading> :<Container maxWidth="xl">
-        {users.length > 0 ? <EnhancedDataGrid  title={'Users Manager'} 
+        {users?.length > 0 ? <EnhancedDataGrid  title={'Users Manager'} 
           isToolBarOn={true} 
           dataRow={users} 
           pageSize={8}

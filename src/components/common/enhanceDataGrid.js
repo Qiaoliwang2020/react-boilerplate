@@ -91,6 +91,7 @@ export default function EnhancedDataGrid(props) {
         <DataGrid
           loading={props?.loading ?? false}
           isCellEditable={() =>props?.isCellEditable ?? false}
+          checkboxSelection ={props?.isCheckboxSelection ?? false}
           components={{ Toolbar: props?.isToolBarOn ? GridToolbar : '' }}
           getRowId={(row) => row?._id}
           rows={props?.dataRow}
@@ -101,6 +102,9 @@ export default function EnhancedDataGrid(props) {
                 pageSize: props?.pageSize ?? 10,
               },
             },
+          }}
+          onRowSelectionModelChange={(newSelection)=>{
+            props?.onRowSelectionModelChange(newSelection) ?? console.log(newSelection);
           }}
           rowsPerPageOptions={props?.rowsPerPageOptions ?? [5]}
           disableSelectionOnClick
@@ -114,7 +118,9 @@ EnhancedDataGrid.propTypes ={
   title:PropTypes.string,
   loading:PropTypes.bool,
   isCellEditable:PropTypes.bool,
+  isCheckboxSelection:PropTypes.bool,
   isToolBarOn:PropTypes.bool,
+  onRowSelectionModelChange:PropTypes.func,
   dataRow:PropTypes.array.isRequired,
   pageSize:PropTypes.number,
   rowsPerPageOptions:PropTypes.array,

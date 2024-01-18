@@ -4,7 +4,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import { APIKeys } from '../../constants';
 
 /**
- * Created by Sanchit Dang. Updated by Jason Pham.
+ * Created by Sanchit Dang. Updated by Zoe Wang.
  * This Editor is a wrapper on TinyMCE-React (https://github.com/tinymce/tinymce-react)
  * Use apiKeys from constants to change apiKey
  * 
@@ -23,13 +23,12 @@ export const EnhancedEditor = (props) => {
   const [editorID, setEditorID] = useState();
   const [menuBar, setMenuBar] = useState(true);
   const [height, setHeight] = useState(500);
-  const [toolbar1, setToolbar1] = useState('bold italic underline| fontsizeselect formatselect | bullist numlist |  alignleft aligncenter alignright alignjustify');
-  const [toolbar2, setToolbar2] = useState('link image media | forecolor backcolor | outdent indent');
+  const [toolbar1, setToolbar1] = useState('undo redo | blocks | ' +
+  'bold italic backcolor | alignleft aligncenter ');
+  const [toolbar2, setToolbar2] = useState('alignright alignjustify | bullist numlist outdent indent | removeformat |');
   const [removed_menuitems, setRemoved_menuitems] = useState('newdocument wordcount');
   const plugins = [
-    'advlist autolink lists link image imagetools charmap print hr preview anchor',
-    'searchreplace visualblocks visualchars nonbreaking code fullscreen',
-    'insertdatetime table media directionality emoticons paste code wordcount save'
+    'advlist', 'autolink', 'lists','image', 'charmap','searchreplace','wordcount','preview','media','link'
   ];
   const content_css = ['//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i'];
   useEffect(() => {
@@ -50,6 +49,7 @@ export const EnhancedEditor = (props) => {
   }, [props]);
 
   let initObj = {
+    selector: 'textarea', 
     height, plugins, removed_menuitems, content_css, image_advtab: true, toolbar1, toolbar2,
     file_picker_types: 'file image media', images_reuse_filename: true,
     file_picker_callback: props.imageUpload === undefined ? null : (callback) => {
